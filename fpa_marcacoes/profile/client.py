@@ -10,13 +10,18 @@ if typing.TYPE_CHECKING:
     from ..client import Client
 
 from ..core import ApiError
+from ..core.pydantic_utilities import parse_obj_as
+from .types.profile_get_response import ProfileGetResponse
 
 class ProfileClient:
     def __init__(self, client_wrapper: Client):
         self._client_wrapper = client_wrapper
 
 
-    def get(self):
+    def get(self) -> ProfileGetResponse:
+        """
+        Get the athlete's profile information
+        """
         response = self._client_wrapper.request(
             'atleta/meus-dados',
             method = 'GET',
@@ -28,14 +33,20 @@ class ProfileClient:
 
             inputs = card.find_all('input')
 
-            return {
-                'profile_image': inputs[0].get('value'),
-                'name': inputs[2].get('value'),
-                'email': inputs[3].get('value'),
-                'nif': inputs[4].get('value'),
-                'priority': int(inputs[5].get('value').replace('Prioridade', '').strip()),
-                'coach': inputs[6].get('value'),
-            }
+            return typing.cast(
+                ProfileGetResponse,
+                parse_obj_as(
+                    type_=ProfileGetResponse,
+                    object_= {
+                        'profile_image': inputs[0].get('value'),
+                        'name': inputs[2].get('value'),
+                        'email': inputs[3].get('value'),
+                        'nif': int(inputs[4].get('value')),
+                        'priority': int(inputs[5].get('value').replace('Prioridade', '').strip()),
+                        'coach': inputs[6].get('value'),
+                    }
+                )
+            )
         else:
             raise ApiError(response.status_code, response.text)
 

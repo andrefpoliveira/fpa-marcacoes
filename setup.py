@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 DESCRIPTION = 'An API Wrapper for the FPA\'s website of trainings and massage scheduler'
 LONG_DESCRIPTION = 'An API Wrapper for the FPA\'s website of trainings and massage scheduler'
 
@@ -13,7 +13,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
     install_requires=[
-        'requests', 'bs4', 'Pillow'
+        'requests', 'bs4', 'Pillow', 'pydantic'
     ],
 
     keywords=['python', 'FPA'],
