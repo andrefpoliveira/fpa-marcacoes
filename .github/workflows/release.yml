@@ -1,9 +1,9 @@
-name: Upload Python Package
+name: Upload Package
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
