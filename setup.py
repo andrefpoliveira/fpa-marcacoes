@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.6'
+VERSION = '0.1.0'
 DESCRIPTION = 'An API Wrapper for the FPA\'s website of trainings and massage scheduler'
 LONG_DESCRIPTION = 'An API Wrapper for the FPA\'s website of trainings and massage scheduler'
 
